@@ -1,0 +1,325 @@
+AWS Developer Certification - Associate
+--------------------------------------------
+	4 Days Training 
+
+
+
+Session Plan - 
+	10 to 11.30	-> Session1 : 	Introduction to Cloud		
+				      	Overview of AWS
+				 	AWS Console
+					EC2 Service 
+
+	11.45 to 1	-> session 2: 	Deep dive EC2, LB
+
+	2.00 to 3.30	-> Session 3:	AutoScaling, VPC
+
+	3.45 to 5.30	-> Session 4: 	VPC
+
+	5.30 to 6.00	-> doubts
+
+Introduction to Cloud
+-----------------------------
+	
+	Data
+	Application	
+	Platform/Runtime
+	OS
+	Virtualization
+	Networking
+	Storage
+	Servers
+
+
+Cloud providers
+---------------------
+	AWS
+	AZURE
+	GCP
+	...
+	..
+
+
+Private Cloud
+
+Public Cloud 
+
+Hybrid Cloud
+
+types of services offered by cloud providers
+-------------------------------------------
+
+IAAS
+	- offers virtualized hardware or computing infrastrcture as service 
+	- pay-as-you-go
+	- AWS EC2
+	- GCP - Google compute engine
+	- 
+PAAS
+	- offers application platform and tools
+	- AWS Elastic Beanstalk
+
+SAAS
+	- offers software/application as service 
+
+
+
+
+AWS Services
+-------------------
+	= Compute 
+		- EC2
+		- Lambda
+		- Elastic Beanstalk
+	= Storage
+		- S3
+		- EFS
+		- Storage Gateway
+		- Glacier
+	
+	= Database
+		- RDS
+		- DynamoDB
+		- ElastiCache
+		- RedShift
+
+	= Networking 
+		- VPC
+		- CloudFront
+		- Route53
+		- DirectConnect
+		- API Gateway
+
+	= Development tools
+		- codecommit
+		- codebuild
+		- codedeploy
+		- codepipeline
+		- codestar
+		- x-ray
+
+	= Management/Monitoring tools
+		- CloudWatch
+		- CloudFormation
+		- CloudTrail
+		- AWS Config
+		- Systems Manager
+	= Security, identity
+		- IAM
+		- Cognito
+		- WAF - Web application firewall
+
+	= application integration
+		- SNS
+		- SQS
+		- Kinesis
+		- Step functions
+
+
+Regions
+------------
+	- geographical areas 
+	
+Availability Zone
+	- physical data center
+
+EC2 - Elastic Compute Cloud
+-------------------------------------
+	- provides scalable computing capacity
+	- quickly provision servers/machines/instances/systems
+	- scale the number of instances dynamically up or down based on requirements 
+	- you can AMI to launch the instances
+
+
+	Instance
+		- VM / System / Server / Machine
+
+	AMI - amazon machine image
+		- OS, softwares, db
+
+	Instance Type
+		- CPU		1	2	2		
+		- Memory	1	2	4	
+
+			- general purpose
+			- compute optimized
+			- memory optimzied
+			- graphic accelerated
+			- storage optimized 
+			....
+	Storage 
+		- Root volumne (EBS)
+		- Instance store (EBS) (data will be lost on stopping instance)
+		- Attached additional Volumns (EBS)
+
+	Security Group
+		- specify rules 
+		- acts as a firewall
+		- restrict the protocols, ports, and source IP ranges that you instance can 				serve
+
+	**Create an EC2 Instance (Windows)
+	-----------------------------
+		1. select AMI
+		2. Choose an Instance Type
+		3. Configure Instance Details
+		4. Add Storage
+		5. Add Tags
+		6. Configure Security Group
+
+	**Access the Windows Instance
+	-------------------------------
+		- using remote desktop connection
+
+
+	**Create an EC2 Instance (Linux) & access it using SSH-client
+	------------------------------------------------------------
+
+		- access using puTTY (putty.org)
+
+
+	**=> default users for various linux systems 
+
+		Amazon Linux		ec2-user
+		CentOS			centos
+		Fedora			fedora
+		Suse			root
+		
+		
+	**=> Execute some commands on the EC2 instance (Linux)
+	--------------------------------------------------------------
+		- install a web server & host a web app
+
+			#!/bin/bash
+			sudo su
+			yum update -y
+			yum install httpd -y
+			cd /var/www/html
+			echo "Welcome to my 1st Web app on EC2 Instance" > index.html
+			service httpd start
+			chkconfig httpd on
+
+	Load balancer	
+	----------------------
+		- Distributes the traffic between the resources 
+		- also performs the health checks 
+			- high availability
+			- fault tolerance
+			- elasticity
+			- Security
+
+		- Types of LB
+			1. Classic Load balancer 
+				- handles traffic depending upon application or network level
+			
+			2. Application load balancer 
+				- provides application level routing options 
+				- routes the traffic based on application content spread 					across multiple services, microservices, or container 					services 
+				- 
+
+			3. Network Load balancer 
+				- handles millions of requests per second 
+				- works at network layer (level 4)
+
+
+	Auto Scaling Groups
+	-------------------------
+		1. Load balancer 
+
+		2. Launch Configuration
+			- AMI?
+			- instance type?
+			- script/commands to be executed 
+			- storage?
+			- security groups?
+
+		3. Auto Scaling Groups - ASG
+			- min #
+			- max #
+			- scaling policy to increase/decrese
+				- cloudwatch alarms/triggers
+
+
+	VPC - Virtual Private Cloud
+	-------------------------------
+		- logically isolated / dedicated network into aws account
+
+		- Public IP
+		- Private IP
+		- static IP / elastic Ip
+
+			0.0.0.0		to 	255.255.255.255
+
+		- CIDR block
+	
+			10.0.0.0/30	
+				
+			10.0.0.0
+			10.0.0.1
+			10.0.0.2
+			10.0.0.3
+
+	- subnet
+
+	- Internet Gateway
+
+	- Route Tables
+	
+	- Security Group 
+		- acts as an instance level firewall
+		- each SG can have max 50 separate rules for inbound/outbound 
+		- one SG can be attached to more than one EC2 Instances 
+		- as soon as any modification in security group rules is saved, immediately 				get appied to all associated EC2 instances
+		- by default, it allows all outgoing communication and blocks all incoming
+		- each rules is defined only to "allow" communication
+		- SG are stateful 
+
+	- NACL - network access control lits 
+		- acts as subnet level firewall 
+		- by default, blocks all inbound and outbound traffic 
+		- each subnet must be associated with at least one NACL at a time 
+			-** if it is not explicitely assocaited with any NACL, then it 				automatically gets associated with default NACL
+
+		- One NACL can be associated with one or more subnets
+		- NACL rules are evaluated based on its "Rule Number", lowest to highest
+			** = highest number = 32766
+		- separate rules to "allow" or "deny" can be created 
+
+
+
+	Volumne types
+	------------------
+		General purpose SSD
+		Provisioned IOPS SSD
+		Cold HDD
+		Throughput optimized HDD
+		Magnetic
+
+
+
+
+
+	Types of Storage	
+		1. Block Storage (EBS)
+		2. File Storage (EFS)
+		3. Object storage (S3)
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
